@@ -1,0 +1,39 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>ccmanager (MVP)</title>
+    <style>
+      body { font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace; margin: 16px; }
+      .row { display: flex; gap: 16px; }
+      .col { flex: 1; }
+      pre { background: #111; color: #ddd; padding: 12px; overflow: auto; max-height: 70vh; }
+      table { width: 100%; border-collapse: collapse; }
+      th, td { border-bottom: 1px solid #ddd; padding: 6px; text-align: left; font-size: 12px; }
+      .muted { color: #666; }
+    </style>
+  </head>
+  <body>
+    <h1>ccmanager (MVP)</h1>
+    <div class="muted" id="meta"></div>
+
+    <div class="row">
+      <div class="col">
+        <h2>Sessions</h2>
+        <table>
+          <thead>
+            <tr><th>session_id</th><th>last_ts</th><th>count</th></tr>
+          </thead>
+          <tbody id="sessions"></tbody>
+        </table>
+      </div>
+
+      <div class="col">
+        <h2>Latest events</h2>
+        <pre id="events"></pre>
+      </div>
+    </div>
+
+    <script src="/app.js"></script>
+  </body>
+</html>

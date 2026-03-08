@@ -1,0 +1,7 @@
+{
+  "name": "ccmanager",
+  "version": "0.1.0",
+  "description": "Claude Code session/event logger + local web UI (MVP)",
+  "author": "roycedamien",
+  "license": "MIT"
+}

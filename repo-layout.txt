@@ -1,0 +1,23 @@
+ccmanager-plugin/
+├─ .claude-plugin/
+│  ├─ plugin.json
+│  └─ hooks/
+│     └─ hooks.json
+├─ commands/
+│  └─ ccmanager.md
+├─ hooks/
+│  ├─ session-start.js
+│  ├─ user-prompt-submit.js
+│  ├─ pre-tool-use.js
+│  ├─ post-tool-use.js
+│  └─ stop.js
+├─ server/
+│  ├─ index.js
+│  └─ public/
+│     ├─ index.html
+│     └─ app.js
+├─ scripts/
+│  └─ ensure-log-dir.js
+├─ package.json
+├─ README.md
+└─ .gitignore
