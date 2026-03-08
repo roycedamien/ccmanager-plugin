@@ -2,7 +2,7 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <title>ccmanager (MVP)</title>
+    <title>ccmanager</title>
     <style>
       body { font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace; margin: 16px; }
       .row { display: flex; gap: 16px; }
@@ -11,10 +11,21 @@
       table { width: 100%; border-collapse: collapse; }
       th, td { border-bottom: 1px solid #ddd; padding: 6px; text-align: left; font-size: 12px; }
       .muted { color: #666; }
+      .clickable { cursor: pointer; }
+      .clickable:hover { background: #eef; }
+      .selected { background: #ddf; font-weight: bold; }
+      .filters { margin: 8px 0; display: flex; gap: 8px; align-items: center; font-size: 13px; }
+      .filters select, .filters button { font-family: inherit; font-size: 12px; padding: 2px 6px; }
+      .badge { display: inline-block; padding: 1px 6px; border-radius: 4px; font-size: 11px; color: #fff; margin-right: 4px; }
+      .badge-SessionStart { background: #2a7; }
+      .badge-UserPromptSubmit { background: #27a; }
+      .badge-PreToolUse { background: #a72; }
+      .badge-PostToolUse { background: #72a; }
+      .badge-Stop { background: #777; }
     </style>
   </head>
   <body>
-    <h1>ccmanager (MVP)</h1>
+    <h1>ccmanager</h1>
     <div class="muted" id="meta"></div>
 
     <div class="row">
@@ -29,7 +40,21 @@
       </div>
 
       <div class="col">
-        <h2>Latest events</h2>
+        <h2>Events</h2>
+        <div class="filters">
+          <label>Type:
+            <select id="event-type-filter">
+              <option value="">All</option>
+              <option value="SessionStart">SessionStart</option>
+              <option value="UserPromptSubmit">UserPromptSubmit</option>
+              <option value="PreToolUse">PreToolUse</option>
+              <option value="PostToolUse">PostToolUse</option>
+              <option value="Stop">Stop</option>
+            </select>
+          </label>
+          <span id="filter-info" class="muted"></span>
+          <button id="clear-filters">Clear filters</button>
+        </div>
         <pre id="events"></pre>
       </div>
     </div>

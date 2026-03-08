@@ -1,8 +1,8 @@
-# ccmanager (Claude Code plugin) — MVP
+# ccmanager (Claude Code plugin)
 
-MVP plugin that:
+Plugin that:
 - logs Claude Code hook events to `.claude/ccmanager/events.jsonl`
-- serves a local web UI at `http://127.0.0.1:7337` showing recent events
+- serves a local web UI at `http://127.0.0.1:7337` with session & event filtering
 
 ## Install (standalone plugin)
 
@@ -14,7 +14,7 @@ This repo is intended to be installed as a Claude Code plugin.
    cd ccmanager-plugin
    ```
 
-2. Install / link it using Claude Code’s plugin install mechanism (varies by version).
+2. Install / link it using Claude Code's plugin install mechanism (varies by version).
    - Ensure Claude Code can find `.claude-plugin/plugin.json`.
 
 ## Usage
@@ -26,11 +26,23 @@ Inside Claude Code:
 Logs are written to:
 - `.claude/ccmanager/events.jsonl` (in your current Claude project directory)
 
+### Web UI features
+
+- **Session list** — click a session to filter events to that session
+- **Event type filter** — dropdown to show only specific hook events
+- **Auto-refresh** — UI polls for new events every 3 seconds
+
+### API
+
+- `GET /api/events?limit=N&session_id=ID&event_type=TYPE` — returns logged events with optional filters
+- `GET /api/sessions` — returns per-session summaries sorted by recency
+
 ## Uninstall
 
-Remove the plugin from Claude Code’s plugin directory / uninstall list.
+Remove the plugin from Claude Code's plugin directory / uninstall list.
 
-## Development notes
+## Development
 
-- Hook scripts are Node programs in `hooks/` that read stdin JSON and append to JSONL.
-- Server is a tiny Node HTTP server (no deps) in `server/index.js`.
+- Hook scripts are Node programs in `hooks/` sharing a common library (`hooks/lib.js`).
+- Server is a zero-dependency Node HTTP server in `server/index.js`.
+- Run tests: `npm test`
