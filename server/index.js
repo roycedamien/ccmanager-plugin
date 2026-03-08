@@ -90,7 +90,18 @@ const server = http.createServer((req, res) => {
     if (pathname === "/api/events" && req.method === "GET") {
       const rawLimit = Number(url.searchParams.get("limit"));
       const limit = Math.min(Number.isFinite(rawLimit) && rawLimit > 0 ? rawLimit : 200, 1000);
-      const all = readEvents();
+      const sessionId = url.searchParams.get("session_id");
+      const eventType = url.searchParams.get("event_type");
+
+      let all = readEvents();
+
+      if (sessionId) {
+        all = all.filter((e) => e.session_id === sessionId);
+      }
+      if (eventType) {
+        all = all.filter((e) => e.hook_event_name === eventType);
+      }
+
       const events = all.slice(-limit);
       sendJson(res, { projectDir: PROJECT_DIR, logFile: LOG_FILE, total: all.length, events });
       return;

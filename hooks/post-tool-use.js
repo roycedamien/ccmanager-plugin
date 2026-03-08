@@ -1,33 +1,7 @@
-import fs from "node:fs";
-import path from "node:path";
-
-function readStdin() {
-  return new Promise((resolve) => {
-    let data = "";
-    process.stdin.setEncoding("utf8");
-    process.stdin.on("data", (chunk) => (data += chunk));
-    process.stdin.on("end", () => resolve(data));
-    process.stdin.resume();
-  });
-}
-
-function safeJsonParse(text) {
-  try {
-    return JSON.parse(text);
-  } catch {
-    return { _raw: text };
-  }
-}
-
-function appendEvent(projectDir, event) {
-  const dir = path.join(projectDir, ".claude", "ccmanager");
-  fs.mkdirSync(dir, { recursive: true });
-  const file = path.join(dir, "events.jsonl");
-  fs.appendFileSync(file, JSON.stringify(event) + "\n", "utf8");
-}
+import { readStdin, safeJsonParse, appendEvent, getProjectDir } from "./lib.js";
 
 async function main() {
-  const projectDir = process.env.CLAUDE_PROJECT_DIR || process.cwd();
+  const projectDir = getProjectDir();
   const raw = await readStdin();
   const input = safeJsonParse(raw);
 
